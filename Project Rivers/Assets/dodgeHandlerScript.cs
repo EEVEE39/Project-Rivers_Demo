@@ -45,6 +45,7 @@ public class dodgeHandlerScript : MonoBehaviour
     public GameObject swatter;
     public GameObject swatterUp;
     public GameObject swatterDown;
+    public GameObject reticle;
     public GameObject fly;
  
     public GameObject enemySprite;
@@ -80,6 +81,7 @@ public class dodgeHandlerScript : MonoBehaviour
                 player.transform.position = new Vector2(-1f,-1.5f);
                 enemySprite.GetComponent<UnityEngine.SpriteRenderer> ().sprite = mansquito;
                 enemySprite.transform.position = new Vector3(0f, 1.8f, -1f);
+                dodgeThings.Add(Instantiate(reticle, new Vector3(player.transform.position.x, player.transform.position.y - 2.25f, -1f), Quaternion.identity));
                 break; 
             case "long swatter":
                 timeLimit = 10f;
@@ -159,7 +161,7 @@ public class dodgeHandlerScript : MonoBehaviour
                     break;
                 case "swatter":
                     if(timer > nextSpawn){
-                        dodgeThings.Add(Instantiate(swatter, new Vector3(player.transform.position.x, player.transform.position.y - 2.25f, -1f), Quaternion.identity));
+                        dodgeThings.Add(Instantiate(swatter, new Vector3(player.transform.position.x, player.transform.position.y - 2.25f, -2f), Quaternion.identity));
                         nextSpawn += spawnFrequncy;
                         }
                     if(timer > nextSpawn2){

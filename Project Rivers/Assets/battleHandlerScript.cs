@@ -315,8 +315,10 @@ public class battleHandlerScript : MonoBehaviour
                 }
             }
         currentButtonSelect = 0;
-        if(currentPhase == "enemy")
+        if(currentPhase == "enemy"){
+            maxSelect = 3;
             startEnemyPhase();
+        }
     }
 
     public void startEnemyPhase()

@@ -670,7 +670,7 @@ MonoBehaviour:
   pufferfish: {fileID: 8200170195296007795, guid: b0f3ac4b0f4722d4284af6634994ca25, type: 3}
   hook: {fileID: 7762080326553392157, guid: 2cf708cf8e56cc84289735a75aa483e8, type: 3}
   rope: {fileID: 6734546617865691784, guid: 861757108616eae45bb160a64541667b, type: 3}
-  piranha: {fileID: 8949087096500034732, guid: 12c526c7df8d1f9498d26d39fc43c038, type: 3}
+  piranha: {fileID: 3799046663392336408, guid: 12c526c7df8d1f9498d26d39fc43c038, type: 3}
   hookPiranha: {fileID: 9221150370028274289, guid: aaac2db6ca00b804bb07cd4becead819, type: 3}
   zeis: {fileID: 7170471067809567484, guid: c7fb4d6ec3c284747aadd2d0735a3a59, type: 3}
   zeisblocker: {fileID: 6330600016692523867, guid: c2db5205fee5b5346931504d45eed158, type: 3}
@@ -680,6 +680,7 @@ MonoBehaviour:
   swatter: {fileID: 1761619221813730471, guid: a09d6766743af3841ac765a2f43116ed, type: 3}
   swatterUp: {fileID: 8900722885472797432, guid: aa0bf2b1510f4384a89689a330424398, type: 3}
   swatterDown: {fileID: 8538967782593153398, guid: 6b5966e7d83da8a4788228655419b0fa, type: 3}
+  reticle: {fileID: 7328880166942461191, guid: 706fa3dfd4e35104dbed44102b732ed2, type: 3}
   fly: {fileID: 5961357349458497501, guid: c087fbbeb16e9a243ab5c4c72638cdf4, type: 3}
   enemySprite: {fileID: 408671936}
   gilligan: {fileID: 21300000, guid: 5969eb4aa882d8543a06a3d5c8ac6f0c, type: 3}
