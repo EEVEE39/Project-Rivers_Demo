@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,4 +17,8 @@ public class playerStatsHandler : MonoBehaviour
     public int playerIframe;
     public int playerLuck;
     public int playerLvl;
+
+    void Start(){
+        DontDestroyOnLoad(gameObject);
+    }
 }

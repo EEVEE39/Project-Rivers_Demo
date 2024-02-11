@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class battleHandlerScript : MonoBehaviour
 {
@@ -53,6 +55,8 @@ public class battleHandlerScript : MonoBehaviour
     public float IframeDuration;
     public bool takingDamage;
     public bool gracing;
+    public string dodgeSelected;
+    public int enemyAttacking;
 
     [Header ("Options")]
     public List<string> currentEnemies = new List<string>();
@@ -67,12 +71,18 @@ public class battleHandlerScript : MonoBehaviour
     public List<string> currentActs = new List<string>();
     public List<string> currentActsDescription = new List<string>();
     public List<string> currentDodges = new List<string>();
+    public List<Sprite> enemySprites = new List<Sprite>();
+
+    [Header ("Music")]
+    public AudioSource source;
+    public AudioClip clip;
+    public AudioClip bossMusic;
 
 
-    public void EnemySelect(List<string> BattleEnemies){
-        for(int i = 0; i < BattleEnemies.Count; i++){
+    public void EnemySelect(){
+        for(int i = 0; i < encounterHandlerScript.encounter.Count; i++){
             for(int j = 0; j < enemySystem.enemies.Count; j++){
-                if(BattleEnemies[i] == enemySystem.enemies[j].name){
+                if(encounterHandlerScript.encounter[i] == enemySystem.enemies[j].name){
                     currentEnemies.Add(enemySystem.enemies[j].name);
                     currentActs1.Add(enemySystem.enemies[j].act1);
                     currentActs2.Add(enemySystem.enemies[j].act2);
@@ -82,16 +92,19 @@ public class battleHandlerScript : MonoBehaviour
                     enemyDef.Add(enemySystem.enemies[j].def);
                     enemyMaxHp.Add(enemySystem.enemies[j].hp);
                     enemyHp.Add(enemySystem.enemies[j].hp);
+                    enemySprites.Add(enemySystem.enemies[j].sprite);
+                    currentDodges.Add(enemySystem.enemies[j].dodge1);
+                    currentDodges.Add(enemySystem.enemies[j].dodge2);
+                    if(encounterHandlerScript.isBoss == true)
+                        clip = bossMusic;
+                    else
+                        clip = enemySystem.enemies[j].music;
                 }
             }
             isSpared.Add(false);
             isDead.Add(false);
             enemyFp.Add(0);
         }
-    }
-
-    public void loadBattle()
-    {
         playerAtk = playerStatsHandler.playerAtk;
         playerDef = playerStatsHandler.playerDef;
         playerHp = playerStatsHandler.playerHp;
@@ -118,12 +131,19 @@ public class battleHandlerScript : MonoBehaviour
             isSpared[i] = false;
             isDead[i] = false;
         }
+        source.clip = clip;
+        source.Play();
         currentPhase = "player";
     }
+    
 
-        void Start () 
+    void Start () 
     {
-        	loadBattle();
+        encounterHandlerScript = FindObjectOfType<encounterHandlerScript>();
+        playerStatsHandler = FindObjectOfType<playerStatsHandler>();
+        EnemySelect();
+        Screen.SetResolution(1778, 999, true);
+
     }
 
     void Update()
@@ -184,7 +204,11 @@ public class battleHandlerScript : MonoBehaviour
             }
             if(takingDamage == true){
                 if(canBeHit == true){
-                    playerHp -= 5;
+                    if(currentEnemies.Count == 1){
+                        playerHp -= 10*enemyAtk[0]/playerDef;
+                    }
+                    else
+                        playerHp -= 10*enemyAtk[enemyAttacking]/playerDef;
                     playerSprite.color = new Color(255,255,255,0.5f);
                     canBeHit = false;
                 }
@@ -197,7 +221,7 @@ public class battleHandlerScript : MonoBehaviour
                 enemyFp[i] = 100f;
         }
         if(playerHp <= 0)
-            currentPhase = "ded";
+            SceneManager.LoadScene(0);
         for(int i = 0; i < currentEnemies.Count; i++){
             if(enemyHp[i] <= 0){
                 isDead[i] = true;
@@ -207,12 +231,11 @@ public class battleHandlerScript : MonoBehaviour
                 allDead = false;
             if(isSpared[i] == false)
                 allSpared = false;
+        if(allDead == true || allSpared == true || currentEnemies.Count == 0)
+            SceneManager.LoadScene(0);
         }
-        if(allDead == true || allSpared == true)
-            currentPhase = "win";
         allDead = true;
         allSpared = true;
-
     }
     
 
@@ -224,30 +247,38 @@ public class battleHandlerScript : MonoBehaviour
             currentPhase = "enemy";
             break;
         case "fightSelect":
-            enemyTargeted = currentButtonSelect; 
-            fightUsed(currentButtonSelect);
-            currentPhase = "enemy";
+            if(isDead[currentButtonSelect] == false && isDead[currentButtonSelect] == false){
+                enemyTargeted = currentButtonSelect; 
+                fightUsed(currentButtonSelect);
+                currentPhase = "enemy";
+            }
             break;
         case "act":
             if(currentPhase == "player")
                 actHandlerScript.useAct(currentActs[currentButtonSelect]);
             break;
         case "actSelect":
-            enemyTargeted = currentButtonSelect; 
-            maxSelect = 3;
-            currentSelected = "act";
+            if(isDead[currentButtonSelect] == false && isDead[currentButtonSelect] == false){
+                enemyTargeted = currentButtonSelect; 
+                maxSelect = 3;
+                currentSelected = "act";
+            }
             break;
         case "skillSelect":
-            enemyTargeted = currentButtonSelect; 
-            skillHandlerScript.useSkill(skillHandlerScript.currentSkill + " finish");
-            currentPhase = "enemy";
-            break;  
+            if(isDead[currentButtonSelect] == false && isDead[currentButtonSelect] == false){
+                enemyTargeted = currentButtonSelect; 
+                skillHandlerScript.useSkill(skillHandlerScript.currentSkill + " finish");
+                currentPhase = "enemy";
+            }
+            break; 
         case "skill":
             skillHandlerScript.useSkill(currentSkills[currentButtonSelect]);
             break; 
         case "item":
-            itemHandlerScript.useItem(currentItems[currentButtonSelect + 1 * currentPage]);
-            currentItems.RemoveAt(currentButtonSelect + 1 * currentPage);
+            itemHandlerScript.useItem(currentItems[currentButtonSelect + 4 * currentPage]);
+            currentItems.RemoveAt(currentButtonSelect + 4 * currentPage);
+            playerStatsHandler.playerItems.RemoveAt(currentButtonSelect + 4 * currentPage);
+            playerStatsHandler.playerItemsDescription.RemoveAt(currentButtonSelect + 4 * currentPage);
             currentPhase = "enemy";
             break;
         case "menu":
@@ -275,16 +306,40 @@ public class battleHandlerScript : MonoBehaviour
             }
             break;
         }
+            for(int i = 0; i < enemySystem.enemies.Count; i++){
+                if(isDead[enemyTargeted] == true || isSpared[enemyTargeted] == true){
+                    if(currentEnemies[enemyTargeted] == enemySystem.enemies[i].name){
+                        currentDodges.Remove(enemySystem.enemies[i].dodge1);
+                        currentDodges.Remove(enemySystem.enemies[i].dodge2);
+                    }
+                }
+            }
         currentButtonSelect = 0;
-        if(currentPhase == "enemy"){
-            dodgeHandlerScript.InitiateDodge(currentDodges[Random.Range(0, currentDodges.Count)]);
-            //dodgeHandlerScript.InitiateDodge("scythe");
-            currentSelected = "menu";
-        }
+        if(currentPhase == "enemy")
+            startEnemyPhase();
     }
+
+    public void startEnemyPhase()
+    {
+        dodgeSelected = currentDodges[Random.Range(0, currentDodges.Count)];
+        
+        for(int j = 0; j < enemySystem.enemies.Count; j++){
+            for(int i = 0; i < currentEnemies.Count; i++){
+                if(dodgeSelected == enemySystem.enemies[j].dodge1 || dodgeSelected == enemySystem.enemies[j].dodge2){
+                    if(currentEnemies[i] == enemySystem.enemies[j].name)
+                    enemyAttacking = 1;
+                }
+            }
+        }
+        dodgeHandlerScript.InitiateDodge(dodgeSelected);
+        //dodgeHandlerScript.InitiateDodge("test");
+        currentSelected = "menu";
+    }
+
 
     void backInMenu ()
     {
+        currentButtonSelect = 0;
         switch (currentSelected){
             case "actSelect":
                 currentSelected = "menu";

@@ -1,19 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class encounterHandlerScript : MonoBehaviour
 {
     public battleHandlerScript battleHandlerScript;
     public List<string> encounter = new List<string>();
+    public bool isBoss;
 
-    void Start()
-    {
-        battleHandlerScript.EnemySelect(encounter);
+
+    public void StartBattle(List<string> enemies = null){
+        encounter.Clear();
+        for(int i = 0; i < enemies.Count; i++)
+            encounter.Add(enemies[i]);
+        DontDestroyOnLoad(gameObject);
+        SceneManager.LoadScene(1);
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Update(){
+    //Debug.Log(encounter.Count);
     }
 }

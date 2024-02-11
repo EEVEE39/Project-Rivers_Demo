@@ -13,7 +13,9 @@ public class battleUiHandlerScript : MonoBehaviour
     public Sprite itemSelected;
     public Sprite epmtySprite;
 
-    public GameObject enemySelectMenu;
+    public GameObject enemySelectMenu1;
+    public GameObject enemySelectMenu2;
+    public GameObject enemySelectMenu3;
     public GameObject actSkillItemMenu;
     public GameObject fightMinigame;
     public GameObject actMinigame;
@@ -30,10 +32,18 @@ public class battleUiHandlerScript : MonoBehaviour
     public TextMeshProUGUI endGameText;
     public GameObject endGameButton;
 
-    public List<TextMeshProUGUI> enemyOptionsTexts = new List<TextMeshProUGUI>();
-    public List<TextMeshProUGUI> enemyStatTexts = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyOptionsTexts1 = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyOptionsTexts2 = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyOptionsTexts3 = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyStatTexts1 = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyStatTexts2 = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyStatTexts3 = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> optionsTexts = new List<TextMeshProUGUI>();
     public TextMeshProUGUI descriptionText;
+    public List<GameObject> enemySprites1 = new List<GameObject>();
+    public List<GameObject> enemySprites2 = new List<GameObject>();
+    public List<GameObject> enemySprites3 = new List<GameObject>();
+    public GameObject enemySprite;
     
 
     public int maxItemSelect;
@@ -41,6 +51,9 @@ public class battleUiHandlerScript : MonoBehaviour
 
     void Start()
     {
+        enemySelectMenu1.SetActive(false);
+        enemySelectMenu2.SetActive(false);
+        enemySelectMenu3.SetActive(false);
     }
 
     
@@ -49,16 +62,13 @@ public class battleUiHandlerScript : MonoBehaviour
         
         if(battleHandlerScript.currentPhase == "player"){
             endGameButton.SetActive(false);
-            endGameText.text = " ";
-            gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = fightSelected;
+            endGameText.text = " "; 
             battleArea.SetActive(false);
             playerStats.SetActive(false);
             playerHp.text = battleHandlerScript.playerHp + "/" + battleHandlerScript.playerMaxHp;
             playerLvl.text = "" + battleHandlerScript.playerLvl;
             playerWatt.text = Mathf.Floor(battleHandlerScript.watt) + "%";
-            
             if(battleHandlerScript.currentSelected == "menu"){
-                enemySelectMenu.SetActive(false);
                 actSkillItemMenu.SetActive(true);
                 fightMinigame.SetActive(false);
                 for(int i = 0; i < optionsTexts.Count; i++){
@@ -78,33 +88,79 @@ public class battleUiHandlerScript : MonoBehaviour
                     case 3:
                         gameObject.GetComponent<UnityEngine.UI.Image> ().sprite = itemSelected;
                         break;
-                }
+                }   
             }
-            if(battleHandlerScript.currentSelected == "fightSelect" || battleHandlerScript.currentSelected == "actSelect" || battleHandlerScript.currentSelected == "skillSelect"){
-                enemySelectMenu.SetActive(true);
-                for(int i = 0; i < battleHandlerScript.currentEnemies.Count; i++){
-                    if(battleHandlerScript.isSpared[i] == true)
-                        enemyOptionsTexts[i].text = ":) " + battleHandlerScript.currentEnemies[i];  
-                    else{
-                        if(battleHandlerScript.isDead[i] == true)
-                            enemyOptionsTexts[i].text = "X( " + battleHandlerScript.currentEnemies[i];  
-                        else
-                            enemyOptionsTexts[i].text = battleHandlerScript.currentEnemies[i];  
-                    }
-                    
-                    if(i == battleHandlerScript.currentButtonSelect) 
-                        enemyOptionsTexts[i].color = Color.yellow;
-                    else
-                        enemyOptionsTexts[i].color = Color.white;
-                    enemyStatTexts[i].text = battleHandlerScript.enemyHp[i] + "\n" + battleHandlerScript.enemyFp[i];
-                }                   
+            if(battleHandlerScript.currentSelected == "fightSelect" || battleHandlerScript.currentSelected == "actSelect" || battleHandlerScript.currentSelected == "skillSelect" || battleHandlerScript.currentSelected == "menu"){
+                switch(battleHandlerScript.currentEnemies.Count){
+                    case 1:
+                        enemySelectMenu1.SetActive(true);
+                        for(int i = 0; i < battleHandlerScript.currentEnemies.Count; i++){
+                            if(battleHandlerScript.isSpared[i] == true)
+                                enemyOptionsTexts1[i].text = ":) " + battleHandlerScript.currentEnemies[i];  
+                            else{
+                                if(battleHandlerScript.isDead[i] == true)
+                                    enemyOptionsTexts1[i].text = "X( " + battleHandlerScript.currentEnemies[i];  
+                                else
+                                    enemyOptionsTexts1[i].text = battleHandlerScript.currentEnemies[i];  
+                            }
+                            enemySprites1[i].GetComponent<UnityEngine.UI.Image>().sprite = battleHandlerScript.enemySprites[i];
+                            if(i == battleHandlerScript.currentButtonSelect && battleHandlerScript.currentSelected != "menu")
+                                enemyOptionsTexts3[i].color = Color.yellow;
+                            else
+                                enemyOptionsTexts3[i].color = Color.white;
+                            enemyStatTexts1[i].text = battleHandlerScript.enemyHp[i] + "/" + battleHandlerScript.enemyMaxHp[i] + "\n" + battleHandlerScript.enemyFp[i] + "%";
+                        }
+                        break;
+                    case 2:
+                        enemySelectMenu2.SetActive(true);
+                        for(int i = 0; i < battleHandlerScript.currentEnemies.Count; i++){
+                            if(battleHandlerScript.isSpared[i] == true)
+                                enemyOptionsTexts2[i].text = ":) " + battleHandlerScript.currentEnemies[i];  
+                            else{
+                                if(battleHandlerScript.isDead[i] == true)
+                                    enemyOptionsTexts2[i].text = "X( " + battleHandlerScript.currentEnemies[i];  
+                                else
+                                    enemyOptionsTexts2[i].text = battleHandlerScript.currentEnemies[i];  
+                            }
+                            enemySprites2[i].GetComponent<UnityEngine.UI.Image>().sprite = battleHandlerScript.enemySprites[i];
+                            if(i == battleHandlerScript.currentButtonSelect && battleHandlerScript.currentSelected != "menu")
+                                enemyOptionsTexts3[i].color = Color.yellow;
+                            else
+                                enemyOptionsTexts3[i].color = Color.white;
+                            enemyStatTexts2[i].text = battleHandlerScript.enemyHp[i] + "/" + battleHandlerScript.enemyMaxHp[i] + "\n" + battleHandlerScript.enemyFp[i] + "%";
+                        }
+                        break;
+                    case 3:
+                        enemySelectMenu3.SetActive(true);
+                        for(int i = 0; i < battleHandlerScript.currentEnemies.Count; i++){
+                            if(battleHandlerScript.isSpared[i] == true)
+                                enemyOptionsTexts3[i].text = ":) " + battleHandlerScript.currentEnemies[i];  
+                            else{
+                                if(battleHandlerScript.isDead[i] == true)
+                                    enemyOptionsTexts3[i].text = "X( " + battleHandlerScript.currentEnemies[i];  
+                                else
+                                    enemyOptionsTexts3[i].text = battleHandlerScript.currentEnemies[i];  
+                            }
+                            enemySprites3[i].GetComponent<UnityEngine.UI.Image>().sprite = battleHandlerScript.enemySprites[i];
+                            if(i == battleHandlerScript.currentButtonSelect && battleHandlerScript.currentSelected != "menu") 
+                                enemyOptionsTexts3[i].color = Color.yellow;
+                            else
+                                enemyOptionsTexts3[i].color = Color.white;
+                            enemyStatTexts3[i].text = battleHandlerScript.enemyHp[i] + "/" + battleHandlerScript.enemyMaxHp[i] + "\n" + battleHandlerScript.enemyFp[i] + "%";
+                        }
+                        break;  
+                }                     
             }
             if(battleHandlerScript.currentSelected == "fight"){
-                enemySelectMenu.SetActive(false);
+                enemySelectMenu1.SetActive(false);
+                enemySelectMenu2.SetActive(false);
+                enemySelectMenu3.SetActive(false);
                 fightMinigame.SetActive(true);
             }
             if(battleHandlerScript.currentSelected == "act" || battleHandlerScript.currentSelected == "skill" || battleHandlerScript.currentSelected == "item"){
-                enemySelectMenu.SetActive(false);
+                enemySelectMenu1.SetActive(false);
+                enemySelectMenu2.SetActive(false);
+                enemySelectMenu3.SetActive(false);
                 actSkillItemMenu.SetActive(true);
                 for(int i = 0; i < optionsTexts.Count; i++){
                     optionsTexts[i].text = " ";
@@ -139,9 +195,10 @@ public class battleUiHandlerScript : MonoBehaviour
                         for(int i = 0; i < maxItemSelect; i++){
                             optionsTexts[i].text = battleHandlerScript.currentItems[i + 4 * battleHandlerScript.currentPage];
                         }   
-                        descriptionText.text = battleHandlerScript.currentItemsDescription[battleHandlerScript.currentButtonSelect];
+                        descriptionText.text = battleHandlerScript.currentItemsDescription[battleHandlerScript.currentButtonSelect + 4 * battleHandlerScript.currentPage];
                         break;
                 }
+                enemySprite.GetComponent<UnityEngine.UI.Image>().sprite = battleHandlerScript.enemySprites[battleHandlerScript.enemyTargeted];
             }
             if(battleHandlerScript.currentSelected == "actMinigame"){
                 playerHp.text = " ";
@@ -159,7 +216,9 @@ public class battleUiHandlerScript : MonoBehaviour
             actMinigame.SetActive(false);
             battleArea.SetActive(true);
             playerStats.SetActive(true);
-            enemySelectMenu.SetActive(false);
+            enemySelectMenu1.SetActive(false);
+            enemySelectMenu2.SetActive(false);
+            enemySelectMenu3.SetActive(false);
             actSkillItemMenu.SetActive(false);
             fightMinigame.SetActive(false);
             playerHp.text = " ";
@@ -177,7 +236,9 @@ public class battleUiHandlerScript : MonoBehaviour
         }
         if(battleHandlerScript.currentPhase == "win"){
             actMinigame.SetActive(false);
-            enemySelectMenu.SetActive(false);
+            enemySelectMenu1.SetActive(false);
+            enemySelectMenu2.SetActive(false);
+            enemySelectMenu3.SetActive(false);
             actSkillItemMenu.SetActive(false);
             fightMinigame.SetActive(false);
             endGameButton.SetActive(true);
@@ -185,7 +246,9 @@ public class battleUiHandlerScript : MonoBehaviour
         }
         if(battleHandlerScript.currentPhase == "ded"){
             actMinigame.SetActive(false);
-            enemySelectMenu.SetActive(false);
+            enemySelectMenu1.SetActive(false);
+            enemySelectMenu2.SetActive(false);
+            enemySelectMenu3.SetActive(false);
             actSkillItemMenu.SetActive(false);
             fightMinigame.SetActive(false);
             endGameButton.SetActive(true);

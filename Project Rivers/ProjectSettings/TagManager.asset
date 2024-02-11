@@ -8,6 +8,7 @@ TagManager:
   - fish
   - bugspray
   - scytheblocker
+  - scythe
   layers:
   - Default
   - TransparentFX

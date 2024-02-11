@@ -105,6 +105,7 @@ MonoBehaviour:
   sprinting: 0
   canSprint: 0
   rb: {fileID: 2033936789947192476}
+  movement: {x: 0, y: 0}
 --- !u!61 &561032725675509910
 BoxCollider2D:
   m_ObjectHideFlags: 0
