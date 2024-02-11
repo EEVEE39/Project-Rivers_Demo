@@ -652,7 +652,7 @@ MonoBehaviour:
   currentDodge: 
   battleAreaType: 
   defaultBattleArea: {fileID: 21300000, guid: 03db53d567b4ac74e9453e0d32fc1c26, type: 3}
-  longBattleArea: {fileID: 21300000, guid: fcec4f9f234878f4d8dcd84927639a4e, type: 3}
+  longBattleArea: {fileID: 21300000, guid: 7a1f22dfa34aca9439edf0103b75d545, type: 3}
   wallEast: {fileID: 904010333}
   wallWest: {fileID: 1523337701}
   battleArea: {fileID: 478352485}
@@ -678,8 +678,8 @@ MonoBehaviour:
   oldScytheDirection: 0
   rat: {fileID: 4988438356521539984, guid: e6681c61860d0d147823bbcae9905a7d, type: 3}
   swatter: {fileID: 1761619221813730471, guid: a09d6766743af3841ac765a2f43116ed, type: 3}
-  swatterUp: {fileID: 8900722885472797432, guid: aa0bf2b1510f4384a89689a330424398, type: 3}
-  swatterDown: {fileID: 8538967782593153398, guid: 6b5966e7d83da8a4788228655419b0fa, type: 3}
+  swatterUp: {fileID: 3871111887807568825, guid: aa0bf2b1510f4384a89689a330424398, type: 3}
+  swatterDown: {fileID: 879590914929174774, guid: 6b5966e7d83da8a4788228655419b0fa, type: 3}
   reticle: {fileID: 7328880166942461191, guid: 706fa3dfd4e35104dbed44102b732ed2, type: 3}
   fly: {fileID: 5961357349458497501, guid: c087fbbeb16e9a243ab5c4c72638cdf4, type: 3}
   enemySprite: {fileID: 408671936}

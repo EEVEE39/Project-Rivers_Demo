@@ -174,9 +174,9 @@ public class dodgeHandlerScript : MonoBehaviour
                     break;
                 case "long swatter":
                     if(timer >= nextSpawn){
-                        ranNum = Random.Range(-5.27f, -2.5f);
-                        dodgeThings.Add(Instantiate(swatterUp, new Vector3(6f, ranNum, -1f), Quaternion.identity));
-                        dodgeThings.Add(Instantiate(swatterDown, new Vector3(6f, ranNum + 2.665f, -1f), Quaternion.identity));
+                        ranNum = Random.Range(-6.07f, -3.33f);
+                        dodgeThings.Add(Instantiate(swatterUp, new Vector3(6f, ranNum, 1f), Quaternion.identity));
+                        dodgeThings.Add(Instantiate(swatterDown, new Vector3(6f, ranNum + 4.306f, 1f), Quaternion.identity));
                         nextSpawn += spawnFrequncy;
                     }
                     break;
