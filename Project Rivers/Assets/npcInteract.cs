@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class npcInteract : MonoBehaviour
 {
-    public List<string> battleEnemies = new List<string>();
     public bool playerInHitbox;
     public bool isBoss;
     public encounterHandlerScript encounterHandlerScript;
+    public dialougeManager dialougeManager;
+
+    public Dialouge dialouge;
 
     void Start(){
         encounterHandlerScript = FindObjectOfType<encounterHandlerScript>();
+        dialougeManager = FindObjectOfType<dialougeManager>();
     }
 
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Z) && playerInHitbox){
-            encounterHandlerScript.isBoss = isBoss;
-            encounterHandlerScript.StartBattle(battleEnemies);
+        if(Input.GetKeyUp(KeyCode.Z) && playerInHitbox && dialougeManager.dialouging == false){
+            dialougeManager.startDialouge(dialouge);
         }
     }
 
