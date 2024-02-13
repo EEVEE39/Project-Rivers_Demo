@@ -7279,7 +7279,7 @@ MonoBehaviour:
     act2Description: give the rat some AMERICAN CHEESE, RAAAAAAAAAAAAAAAAAAAAAAAAAAAH
     dodge1: scythe
     dodge2: rats
-    music: {fileID: 8300000, guid: be3f09fdd7c5aee42a72e81c7eb5985f, type: 3}
+    music: {fileID: 8300000, guid: 541f151cd03a674459bd38610ccf9350, type: 3}
   - name: Gilligan
     hp: 100
     atk: 3
