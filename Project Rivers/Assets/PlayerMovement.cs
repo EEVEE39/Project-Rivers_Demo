@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Vector2 movement;
 
+    public Animator animator;
+
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
@@ -39,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
         else{
             moveSpeed = defaultSpeed;
         }
+        }
+        if(defaultSpeed > 0){
+        animator.SetFloat("horizontal",movement.x);
+        animator.SetFloat("vertical",movement.y);
+        animator.SetFloat("speed", movement.sqrMagnitude);
         }
     }
 

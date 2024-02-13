@@ -26,6 +26,7 @@ public class battleHandlerScript : MonoBehaviour
     public List<float> enemyFp = new List<float>();
     public List<bool> isSpared = new List<bool>();
     public List<bool> isDead = new List<bool>();
+    public List<bool> isChecked = new List<bool>();
     public bool allDead = false;
     public bool allSpared = false;
 
@@ -103,6 +104,7 @@ public class battleHandlerScript : MonoBehaviour
             }
             isSpared.Add(false);
             isDead.Add(false);
+            isChecked.Add(false);
             enemyFp.Add(0);
         }
         playerAtk = playerStatsHandler.playerAtk;
@@ -185,7 +187,7 @@ public class battleHandlerScript : MonoBehaviour
                 if(currentButtonSelect < (maxSelect - 1) && Input.GetKeyUp(KeyCode.DownArrow)) 
                     currentButtonSelect += 2;
             }
-            if(currentSelected == "fightSelect" || currentSelected == "actSelect"){
+            if(currentSelected == "fightSelect" || currentSelected == "actSelect" || currentSelected == "skillSelect"){
                     if(currentEnemies.Count == 1){
                         selectButton();
                     }
@@ -220,8 +222,12 @@ public class battleHandlerScript : MonoBehaviour
             if(enemyFp[i] > 100f)
                 enemyFp[i] = 100f;
         }
-        if(playerHp <= 0)
-            SceneManager.LoadScene(0);
+        if(playerHp <= 0){
+                if(encounterHandlerScript.gilliganWin == true && encounterHandlerScript.germaWin == true && encounterHandlerScript.jeffWin == true)
+                    SceneManager.LoadScene(2);
+                else
+                    SceneManager.LoadScene(3);
+        }
         for(int i = 0; i < currentEnemies.Count; i++){
             if(enemyHp[i] <= 0){
                 isDead[i] = true;
@@ -231,9 +237,23 @@ public class battleHandlerScript : MonoBehaviour
                 allDead = false;
             if(isSpared[i] == false)
                 allSpared = false;
-        if(allDead == true || allSpared == true || currentEnemies.Count == 0)
-            SceneManager.LoadScene(0);
         }
+        if(allDead == true || allSpared == true || currentEnemies.Count == 0){
+                if(encounterHandlerScript.encounter[0] == "Gilligan")
+                    encounterHandlerScript.gilliganWin = true;
+                if(encounterHandlerScript.encounter[0] == "Germa")
+                    encounterHandlerScript.germaWin = true;
+                if(encounterHandlerScript.encounter[0] == "Jeff")
+                    encounterHandlerScript.jeffWin = true;
+                if(encounterHandlerScript.gilliganWin == true && encounterHandlerScript.germaWin == true && encounterHandlerScript.jeffWin == true)
+                    SceneManager.LoadScene(2);
+                else{
+                    if(encounterHandlerScript.isBoss == true)
+                    SceneManager.LoadScene(4);
+                else
+                    SceneManager.LoadScene(3);
+                }
+            }
         allDead = true;
         allSpared = true;
     }
@@ -329,7 +349,7 @@ public class battleHandlerScript : MonoBehaviour
             for(int i = 0; i < currentEnemies.Count; i++){
                 if(dodgeSelected == enemySystem.enemies[j].dodge1 || dodgeSelected == enemySystem.enemies[j].dodge2){
                     if(currentEnemies[i] == enemySystem.enemies[j].name)
-                    enemyAttacking = 1;
+                    enemyAttacking = i;
                 }
             }
         }
@@ -348,8 +368,14 @@ public class battleHandlerScript : MonoBehaviour
                 maxSelect = 3;
                 break;
             case "act":
-                currentSelected = "actSelect";
+            if(currentEnemies.Count > 1){
                 maxSelect = currentEnemies.Count - 1;
+                currentSelected = "actSelect";
+            }
+            else{
+                currentSelected = "menu";
+                maxSelect = 3;
+            }
                 break;
             case "fightSelect":
                 currentSelected = "menu";

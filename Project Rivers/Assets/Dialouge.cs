@@ -13,6 +13,4 @@ public class Dialouge
     public List<string> sentences = new List<string>();
 
     public List<string> enemies = new List<string>();
-
-    public bool annoucment;
 }

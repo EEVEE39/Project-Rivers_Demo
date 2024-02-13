@@ -25,7 +25,7 @@ public class actHandlerScript : MonoBehaviour
         Debug.Log(actId);
         switch (actId){
             case "check":
-                Debug.Log("ATK: " + battleHandlerScript.enemyAtk[battleHandlerScript.enemyTargeted] + "\nDEF: " + battleHandlerScript.enemyDef[battleHandlerScript.enemyTargeted]);
+                battleHandlerScript.isChecked[battleHandlerScript.enemyTargeted] = true;
                 battleHandlerScript.currentPhase = "enemy";
                 break; 
             case "spare":

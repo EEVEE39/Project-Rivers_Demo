@@ -13,6 +13,5 @@ public class reticleManager : MonoBehaviour
     void Update()
     {
         transform.position = new Vector2(dodgeHandlerScript.playerPosition.x,dodgeHandlerScript.playerPosition.y);
-        Debug.Log(transform.position);
     }
 }

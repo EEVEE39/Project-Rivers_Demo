@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class dialougeManager : MonoBehaviour
 {
@@ -31,24 +32,27 @@ public class dialougeManager : MonoBehaviour
         for(int i = 0; i < dialouge.enemies.Count; i++){
             enemies.Add(dialouge.enemies[i]);
         }
-        Debug.Log("KAnker");
+
         currentSentence = 0;
         dialouging = true;
         dialougeBox.SetActive(true);
+        Debug.Log("KAnker");
         nameText.text = dialouge.name;
-        FindObjectOfType<PlayerMovement>().moveSpeed = 0;
+        FindObjectOfType<PlayerMovement>().defaultSpeed = 0;
         dialougeBox.GetComponent<UnityEngine.UI.Image>().sprite = dialouge.sprite;
+        
         
     }
 
     public void endDialouge(){
-        FindObjectOfType<PlayerMovement>().moveSpeed = 3;
+        FindObjectOfType<PlayerMovement>().defaultSpeed = 3;
         if(enemies.Count > 0){
             FindObjectOfType<encounterHandlerScript>().StartBattle(enemies);
         }
         if(enemies.Count == 3){
             FindObjectOfType<encounterHandlerScript>().isBoss = true;
         }
+        currentSentence = 0;
         dialouging = false;
         dialougeBox.SetActive(false);
     }

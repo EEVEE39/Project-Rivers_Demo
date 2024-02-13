@@ -38,6 +38,9 @@ public class battleUiHandlerScript : MonoBehaviour
     public List<TextMeshProUGUI> enemyStatTexts1 = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> enemyStatTexts2 = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> enemyStatTexts3 = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyStatTexts1Check = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyStatTexts2Check = new List<TextMeshProUGUI>();
+    public List<TextMeshProUGUI> enemyStatTexts3Check = new List<TextMeshProUGUI>();
     public List<TextMeshProUGUI> optionsTexts = new List<TextMeshProUGUI>();
     public TextMeshProUGUI descriptionText;
     public List<GameObject> enemySprites1 = new List<GameObject>();
@@ -109,6 +112,11 @@ public class battleUiHandlerScript : MonoBehaviour
                             else
                                 enemyOptionsTexts3[i].color = Color.white;
                             enemyStatTexts1[i].text = battleHandlerScript.enemyHp[i] + "/" + battleHandlerScript.enemyMaxHp[i] + "\n" + battleHandlerScript.enemyFp[i] + "%";
+                            if(battleHandlerScript.isChecked[i] == true)
+                                enemyStatTexts1Check[i].text = "ATK: " + battleHandlerScript.enemyAtk[i] + "\n" + "DEF: " + battleHandlerScript.enemyDef[i];
+                            else
+                                enemyStatTexts1Check[i].text = " ";
+                            
                         }
                         break;
                     case 2:
@@ -128,6 +136,10 @@ public class battleUiHandlerScript : MonoBehaviour
                             else
                                 enemyOptionsTexts3[i].color = Color.white;
                             enemyStatTexts2[i].text = battleHandlerScript.enemyHp[i] + "/" + battleHandlerScript.enemyMaxHp[i] + "\n" + battleHandlerScript.enemyFp[i] + "%";
+                            if(battleHandlerScript.isChecked[i] == true)
+                                enemyStatTexts2Check[i].text = "ATK: " + battleHandlerScript.enemyAtk[i] + "\n" + "DEF: " + battleHandlerScript.enemyDef[i];
+                            else
+                                enemyStatTexts2Check[i].text = " ";
                         }
                         break;
                     case 3:
@@ -147,6 +159,10 @@ public class battleUiHandlerScript : MonoBehaviour
                             else
                                 enemyOptionsTexts3[i].color = Color.white;
                             enemyStatTexts3[i].text = battleHandlerScript.enemyHp[i] + "/" + battleHandlerScript.enemyMaxHp[i] + "\n" + battleHandlerScript.enemyFp[i] + "%";
+                            if(battleHandlerScript.isChecked[i] == true)
+                                enemyStatTexts3Check[i].text = "ATK: " + battleHandlerScript.enemyAtk[i] + "\n" + "DEF: " + battleHandlerScript.enemyDef[i];
+                            else
+                                enemyStatTexts3Check[i].text = " ";
                         }
                         break;  
                 }                     

@@ -5,7 +5,6 @@ using UnityEngine;
 public class npcInteract : MonoBehaviour
 {
     public bool playerInHitbox;
-    public bool isBoss;
     public encounterHandlerScript encounterHandlerScript;
     public dialougeManager dialougeManager;
 

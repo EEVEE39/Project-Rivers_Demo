@@ -6,8 +6,16 @@ using UnityEngine.SceneManagement;
 public class encounterHandlerScript : MonoBehaviour
 {
     public battleHandlerScript battleHandlerScript;
+    public dialougeManager dialougeManager;
     public List<string> encounter = new List<string>();
     public bool isBoss;
+
+    public bool gilliganWin;
+    public bool germaWin;
+    public bool jeffWin;
+
+    
+    
 
 
     public void StartBattle(List<string> enemies = null){

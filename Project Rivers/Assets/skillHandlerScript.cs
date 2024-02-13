@@ -36,7 +36,7 @@ public class skillHandlerScript : MonoBehaviour
                 break;
             case "soothing music finish":
                 battleHandlerScript.watt -= 40f;
-                battleHandlerScript.enemyFp[battleHandlerScript.enemyTargeted] += 30f;
+                battleHandlerScript.enemyFp[battleHandlerScript.enemyTargeted] += 35f;
                 battleHandlerScript.currentPhase = "enemy";
                 break;
         }
