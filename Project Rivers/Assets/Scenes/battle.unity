@@ -724,7 +724,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 373.25, y: 0.07817}
-  m_SizeDelta: {x: 106.5, y: 479.84}
+  m_SizeDelta: {x: 108, y: 479.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200026665
 MonoBehaviour:
@@ -2310,7 +2310,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -373.3, y: 0.07817}
-  m_SizeDelta: {x: 106.5, y: 479.84}
+  m_SizeDelta: {x: 108, y: 479.84}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &628699912
 MonoBehaviour:
@@ -3638,6 +3638,7 @@ MonoBehaviour:
   defaultSprintSpeed: 7
   sprinting: 0
   canSprint: 0
+  inFight: 1
   rb: {fileID: 906170156}
   movement: {x: 0, y: 0}
   animator: {fileID: 0}
@@ -3856,7 +3857,7 @@ MonoBehaviour:
   isChecked: 
   allDead: 0
   allSpared: 0
-  playerAtk: 10
+  playerAtk: 100
   playerDef: 2
   playerMaxHp: 100
   playerHp: 100
@@ -4932,8 +4933,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5de0646f835e88e42acb45e013678b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempText: {fileID: 1297668236}
-  battleHandlerScript: {fileID: 921123451}
 --- !u!1 &1304657893
 GameObject:
   m_ObjectHideFlags: 0

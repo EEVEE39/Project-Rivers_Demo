@@ -1877,6 +1877,7 @@ MonoBehaviour:
   defaultSprintSpeed: 7
   sprinting: 0
   canSprint: 0
+  inFight: 0
   rb: {fileID: 1810974046}
   movement: {x: 0, y: 0}
   animator: {fileID: 1810974049}

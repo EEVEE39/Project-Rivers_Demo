@@ -245,7 +245,7 @@ public class battleHandlerScript : MonoBehaviour
                     encounterHandlerScript.germaWin = true;
                 if(encounterHandlerScript.encounter[0] == "Jeff")
                     encounterHandlerScript.jeffWin = true;
-                if(encounterHandlerScript.gilliganWin == true && encounterHandlerScript.germaWin == true && encounterHandlerScript.jeffWin == true)
+                if(encounterHandlerScript.gilliganWin == true && encounterHandlerScript.germaWin == true && encounterHandlerScript.jeffWin == true && encounterHandlerScript.isBoss == false)
                     SceneManager.LoadScene(2);
                 else{
                     if(encounterHandlerScript.isBoss == true)

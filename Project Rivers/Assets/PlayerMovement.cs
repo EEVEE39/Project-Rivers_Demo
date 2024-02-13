@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float defaultSprintSpeed;
     public bool sprinting;
     public bool canSprint;
+    public bool inFight;
     public Rigidbody2D rb;
 
     public Vector2 movement;
@@ -42,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = defaultSpeed;
         }
         }
-        if(defaultSpeed > 0){
+        if(defaultSpeed > 0 && inFight == false){
         animator.SetFloat("horizontal",movement.x);
         animator.SetFloat("vertical",movement.y);
         animator.SetFloat("speed", movement.sqrMagnitude);
